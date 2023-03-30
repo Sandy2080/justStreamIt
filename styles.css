@@ -1,0 +1,298 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #111111;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+}
+
+button {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background-color: #caaa76;
+    border: none;
+    color: white;
+}
+
+
+/* Header */
+
+.header {
+    align-items: center;
+    display: inline-flex;
+
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+}
+
+.header-logo img {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.nav_bar {
+    display: flex;
+    list-style: none;
+    margin-right: 10px;
+}
+
+.nav a {
+    color: white;
+    font-size: 20px;
+    margin-right: 20px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.nav a:hover {
+    font-weight: bold;
+}
+
+
+/* Best movie */
+
+.best-cover {
+    position: relative;
+    height: 400px;
+    background-color: #272727;
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: 100% 10%;
+    border-radius: 10px;
+}
+
+.best {
+    background: linear-gradient(180deg, #333, #111111);
+    padding: 5rem;
+}
+
+.best-movie-title {
+    font-size: 45px;
+}
+
+.featured {
+    position: absolute;
+    padding: 0.5rem 1rem;
+}
+
+.button {
+    font-size: 18px;
+    width: 120px;
+}
+
+.best-movie-description p {
+    font-style: italic;
+    line-height: 180%;
+    margin-right: 60%;
+    margin-top: 3%;
+}
+
+.best-cover img {
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+    float: right;
+    max-width: 280px;
+    min-width: 200px;
+    width: 40%;
+}
+
+
+/* Categories */
+
+.categories {
+    align-items: center;
+    display: flex;
+    height: 500px;
+    justify-content: center;
+}
+
+.container {
+    width: 1200px;
+}
+
+.container h2 {
+    font-size: 26px;
+}
+
+
+/* Carrousel */
+
+.carousel-container {
+    align-items: center;
+    display: flex;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-content {
+    display: flex;
+    left: 0;
+    position: absolute;
+    top: 300px;
+    transform: translateY(-50%);
+    transition: all 0.7s ease;
+}
+
+
+
+.box img {
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+    transition: .5s ease;
+    width: 240px;
+}
+
+.btn {
+    background-color: transparent;
+    color: rgba(255, 255, 255, .3);
+    font-size: 36px;
+    height: 100px;
+    position: absolute;
+    top: 45%;
+    right: -10px;
+    transform: translateY(-50%) scale(0.5);
+    transition: all 0.05s ease;
+    visibility: hidden;
+    width: 30px;
+}
+
+.btn.show {
+    background-color: transparent;
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    visibility: visible;
+}
+
+.btn.right::after {
+    content: "\232A"
+}
+
+.btn.left::after {
+    content: "\2329"
+}
+
+.btn.left {
+    left: 0;
+}
+
+.btn.right {
+    right: 0;
+}
+
+
+/* Overlay */
+
+.overlay {
+    opacity: 0;
+    text-align: center;
+    transform: translate(10%, -180%);
+    transition: .5s ease;
+}
+
+.box:hover img {
+    opacity: 0.2;
+}
+
+.box:hover .overlay {
+    opacity: 1;
+}
+
+.overlay p {
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 60px
+}
+
+.overlay-button {
+    font-size: 13px;
+    margin-right: 5px;
+    width: 60px;
+}
+
+
+/* Modal */
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.modal-content {
+    background-color: #222222;
+    border-radius: 10px;
+    margin: 5% auto;
+    max-width: 1500px;
+    min-height: 350px;
+    padding: 30px 30px 60px 30px;
+    width: 80%;
+}
+
+.modal-cover-image img {
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+    float: right;
+    height: 340px;
+    margin-right: 120px;
+    margin-top: 1%;
+}
+
+.modal-content h3 {
+    display: inline-block;
+    font-size: 24px;
+}
+
+.modal-button {
+    font-size: 14px;
+    margin-left: 30px;
+    width: 80px;
+}
+
+.modal-movie-info {
+    font-size: 15px;
+    margin-left: 30px;
+    margin-right: 40%;
+}
+
+.metadata {
+    font-weight: bold;
+}
+
+.modal-content p {
+    display: inline;
+    line-height: 150%;
+}
+
+.genres, strong {
+    color: #caaa76;
+}
+
+.plot {
+    font-style: italic;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    cursor: pointer;
+    text-decoration: none;
+}
