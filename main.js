@@ -82,17 +82,16 @@ function fetchModalData(id) {
 
 // Categories
 
-async function fetchCategories(name, skip, total = 7) {
+async function fetchCategories(name) {
   const results = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
   if (results.ok) {
     const data = await results.json();
     let moviesData = data.results;
 
-    if (moviesData.length < total) {
-      let results2 = await (await fetch(data.next)).json();
-      for (let i = 0; i < results2.length; i++) {
-        moviesData.push(results2[i].results);
-      }
+    const category = await fetch(data.next);
+    let resultsJson = await category.json();
+    for (let i = 0; i < resultsJson.length; i++) {
+      moviesData.push(resultsJson[i].results);
     }
     return moviesData;
   }
@@ -104,8 +103,10 @@ function moveCarouselLeft(category) {
   let carrouselContent = document.querySelector("#" + category + "-movies");
   let carrouselLeftBtn = document.querySelector("#" + category + "-left");
   let carrouselRightBtn = document.querySelector("#" + category + "-right");
-
-  carrouselContent.style.left = -240 * 1 + "px";
+  const bounds = carrouselContent.getClientRects();
+  let left = 0;
+  console.log(left);
+  carrouselContent.style.left = (left - bounds) * 1 + "px";
   carrouselRightBtn.classList.remove("show");
   carrouselRightBtn.classList.add(".left");
   carrouselLeftBtn.classList.add("show");
@@ -122,7 +123,7 @@ function moveCarouselRight(category) {
   carrouselLeftBtn.classList.remove("show");
 }
 
-async function buildCarousel(category, name, skip = 0) {
+async function buildCarousel(category, name) {
   let cat_name = name;
   if (name === "best") cat_name = "";
 
@@ -145,7 +146,7 @@ async function buildCarousel(category, name, skip = 0) {
 
   document.querySelector(".carousels").appendChild(section);
 
-  const movies = await fetchCategories(cat_name, skip);
+  const movies = await fetchCategories(cat_name);
 
   let i = 0;
   for (const movie of movies) {
@@ -191,7 +192,6 @@ async function buildCarousel(category, name, skip = 0) {
   leftButton.setAttribute("aria-label", `${name} slide left`);
   leftButton.setAttribute("id", `${name}-left`);
   leftButton.setAttribute("onclick", `moveCarouselRight("${name}")`);
-  leftButton.innerHTML = '<i class="bi bi-chevron-left"></i>';
   controls.appendChild(leftButton);
 
   const rightButton = document.createElement("button");
@@ -201,7 +201,6 @@ async function buildCarousel(category, name, skip = 0) {
   rightButton.setAttribute("id", `${name}-right`);
   rightButton.setAttribute("aria-label", `${name} slide right`);
   rightButton.setAttribute("onclick", `moveCarouselLeft("${name}")`);
-  rightButton.innerHTML = '<i class="bi bi-chevron-right"></i>';
   controls.appendChild(rightButton);
 
   carouselContainer.appendChild(carouselContent);
@@ -212,10 +211,12 @@ async function buildCarousel(category, name, skip = 0) {
 }
 
 function start() {
-  buildCarousel("Best-rated", "best", 1);
-  buildCarousel("Horror", "horror");
-  buildCarousel("History", "history");
-  buildCarousel("Romance", "romance");
+  const categories = ["Horror", "History", "Romance"];
+  buildCarousel("Best-rated", "best");
+  for (let i = 0; i < categories.length; i++) {
+    const category = categories[i];
+    buildCarousel(category, category.toLowerCase());
+  }
   fetchBestMovie();
 }
 
