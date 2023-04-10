@@ -82,16 +82,21 @@ function fetchModalData(id) {
 
 // Categories
 
-async function fetchCategories(name) {
-  const results = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
-  if (results.ok) {
-    const data = await results.json();
-    let moviesData = data.results;
+async function fetchCategory(name) {
+  let moviesData = [];
+  const response = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
+  if (response.ok) {
+    const json = await response.json();
+    const movies_results = json.results;
 
-    const category = await fetch(data.next);
-    let resultsJson = await category.json();
-    for (let i = 0; i < resultsJson.length; i++) {
-      moviesData.push(resultsJson[i].results);
+    const response_next = await fetch(json.next);
+    const json_next = await response_next.json();
+    const movies_results_next = json_next.results;
+
+    const movies = [...movies_results, ...movies_results_next];
+
+    for (let i = 0; i < 7; i++) {
+      moviesData.push(movies[i]);
     }
     return moviesData;
   }
@@ -106,7 +111,7 @@ function moveCarouselLeft(category) {
   const bounds = carrouselContent.getClientRects();
   let left = 0;
   console.log(left);
-  carrouselContent.style.left = (left - bounds) * 1 + "px";
+  carrouselContent.style.left = -480 * 1 + "px";
   carrouselRightBtn.classList.remove("show");
   carrouselRightBtn.classList.add(".left");
   carrouselLeftBtn.classList.add("show");
@@ -146,7 +151,7 @@ async function buildCarousel(category, name) {
 
   document.querySelector(".carousels").appendChild(section);
 
-  const movies = await fetchCategories(cat_name);
+  const movies = await fetchCategory(cat_name);
 
   let i = 0;
   for (const movie of movies) {
