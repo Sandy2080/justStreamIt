@@ -25,7 +25,6 @@ function fetchBestMovie() {
         });
     });
 }
-
 // Modal control and fetch data
 function openModal(id) {
   let modal = document.getElementById("modal");
@@ -40,7 +39,6 @@ function openModal(id) {
     if (event.target === modal) modal.style.display = "none";
   };
 }
-
 function fetchModalData(id) {
   fetch(mainUrl + id)
     .then((response) => response.json())
@@ -81,7 +79,6 @@ function fetchModalData(id) {
 }
 
 // Categories
-
 async function fetchCategory(name) {
   let moviesData = [];
   const response = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
@@ -103,7 +100,6 @@ async function fetchCategory(name) {
 }
 
 // Carousel controls
-
 function moveCarouselLeft(category) {
   let carrouselContent = document.querySelector("#" + category + "-movies");
   let carrouselLeftBtn = document.querySelector("#" + category + "-left");
@@ -116,7 +112,6 @@ function moveCarouselLeft(category) {
   carrouselRightBtn.classList.add(".left");
   carrouselLeftBtn.classList.add("show");
 }
-
 function moveCarouselRight(category) {
   let carrouselContent = document.querySelector("#" + category + "-movies");
   let carrouselLeftBtn = document.querySelector("#" + category + "-left");
@@ -127,7 +122,6 @@ function moveCarouselRight(category) {
   carrouselRightBtn.classList.add(".right");
   carrouselLeftBtn.classList.remove("show");
 }
-
 async function buildCarousel(category, name) {
   let cat_name = name;
   if (name === "best") cat_name = "";
@@ -214,7 +208,6 @@ async function buildCarousel(category, name) {
   carousel.appendChild(carouselContainer);
   section.appendChild(carousel);
 }
-
 function start() {
   const categories = ["Horror", "History", "Romance"];
   buildCarousel("Best-rated", "best");
